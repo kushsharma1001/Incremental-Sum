@@ -13,7 +13,7 @@ public class Sum {
 			return Integer.parseInt(input); 
 		}
 		
-		if(input.matches("^\\d+\\;\\d+")) {
+		if(input.matches("^\\d+(\\;\\d+)+")) {//"^\\d+\\;\\d+"
 			String numbers[] = input.split(";");
 			return Arrays.stream(numbers).mapToInt(Integer::parseInt).sum();
 		}

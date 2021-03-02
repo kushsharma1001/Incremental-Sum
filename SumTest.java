@@ -1,12 +1,9 @@
 package com.operation;
 
-import java.util.Arrays;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.InjectMocks;
 
 public class SumTest {
 
@@ -40,6 +37,13 @@ public class SumTest {
 		Assert.assertEquals(10, result);
 	}
 
+	@Test
+	public void calculate_Positive_MultiplenNumbers() {
+		// input:2
+		result = sum.calculate("2;8;9;5");
+		Assert.assertEquals(24, result);
+	}
+	
 	@Test
 	public void calculate_Negative_InvalidColon() {
 
