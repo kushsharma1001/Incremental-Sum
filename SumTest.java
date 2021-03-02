@@ -32,17 +32,42 @@ public class SumTest {
 	
 	@Test
 	public void calculate_Positive() {
-		// input:2
-		result = sum.calculate("2;8");
+		// input:2,8
+		result = sum.calculate("2,8");
 		Assert.assertEquals(10, result);
 	}
 
 	@Test
 	public void calculate_Positive_MultiplenNumbers() {
-		// input:2
-		result = sum.calculate("2;8;9;5");
+		// input:2,8,9,5
+		result = sum.calculate("2,8,9,5");
 		Assert.assertEquals(24, result);
 	}
+	
+	@Test
+	public void calculate_Positive_MultiplenNumbersNewLine() {
+		// input:2\n8,9\n1
+		result = sum.calculate("2\n8,9\n1");
+		Assert.assertEquals(20, result);
+	}
+	
+	@Test
+	public void calculate_Positive_MultiplenNumbersNewLine2() {
+		// input:2,8,9\n1
+		result = sum.calculate("2,8,9\n1");
+		Assert.assertEquals(20, result);
+	}
+	
+	
+	@Test
+	public void calculate_Negative_NegativeNumbers() {
+
+		// input: 1,2,-4
+		expectedException.expect(InvalidInputException.class);
+		expectedException.expectMessage("Negatives not allowed: " + "-4");
+		result = sum.calculate("1,2,-4");
+	}
+	 
 	
 	@Test
 	public void calculate_Negative_InvalidColon() {
@@ -56,9 +81,9 @@ public class SumTest {
 	@Test
 	public void calculate_Negative_InvalidAlphabets() {
 
-		// input: :
+		// input: 2,b
 		expectedException.expect(InvalidInputException.class);
-		expectedException.expectMessage("Invalid input: " + "2;b");
-		result = sum.calculate("2;b");
+		expectedException.expectMessage("Invalid input: " + "2,b");
+		result = sum.calculate("2,b");
 	}
 }

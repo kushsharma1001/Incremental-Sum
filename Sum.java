@@ -13,8 +13,22 @@ public class Sum {
 			return Integer.parseInt(input); 
 		}
 		
-		if(input.matches("^\\d+(\\;\\d+)+")) {//"^\\d+\\;\\d+"
-			String numbers[] = input.split(";");
+		if(input.matches("^\\-?[0-9]+([,\\n]-?[0-9]+)+")) {     //    ^\\d+([,\\n]\\d+)+
+			input = input.replaceAll("\\n", ",");
+			String numbers[] = input.split(",");
+			
+			int intArr[] = Arrays.stream(numbers).mapToInt(Integer::parseInt).toArray();
+			StringBuilder builder = new StringBuilder();
+			boolean negativeFound = false;
+			for(int item: intArr) {
+				if(item<0) {
+					negativeFound = true;
+					builder.append(item + " ");
+				}
+			}
+			if(negativeFound) {
+				throw new InvalidInputException("Negatives not allowed: " + builder.toString());
+			}
 			return Arrays.stream(numbers).mapToInt(Integer::parseInt).sum();
 		}
 		
